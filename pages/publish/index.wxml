@@ -54,6 +54,11 @@
       </view>
     </view>
     <view class="form-section">
+      <text class="form-label">所在校区 <text class="campus-optional" wx:if="{{campusCertified}}">（已自动匹配）</text></text>
+      <campus-picker value="{{form.campus}}" placeholder="选择商品所在学校" bind:change="onCampusChange" />
+      <text class="form-hint" wx:if="{{campusCertified}}">已认证：{{userCampus}}</text>
+    </view>
+    <view class="form-section">
       <text class="form-label">商品描述</text>
       <textarea class="form-textarea" placeholder="请详细描述商品的使用情况、瑕疵等" maxlength="500" value="{{form.description}}" bindinput="onInput" data-field="description" />
       <text class="textarea-count">{{form.description.length}}/500</text>

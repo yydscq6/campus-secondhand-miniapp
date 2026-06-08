@@ -22,6 +22,26 @@
       <view class="stat-item"><text class="stat-num">{{stats.favorite}}</text><text class="stat-label">收藏</text></view>
     </view>
   </view>
+  <!-- 校园认证横幅 -->
+  <view class="container" style="margin-top:24rpx">
+    <view class="cert-banner card {{isLoggedIn && campusCertified ? 'certified' : ''}}" bindtap="goCertify">
+      <view class="cert-banner-left">
+        <text class="cert-banner-icon">🎓</text>
+        <view class="cert-banner-info">
+          <text class="cert-banner-title" wx:if="{{isLoggedIn && campusCertified}}">已认证 · {{userCampus}}</text>
+          <text class="cert-banner-title" wx:elif="{{isLoggedIn}}">完成校园认证</text>
+          <text class="cert-banner-title" wx:else>登录后进行校园认证</text>
+          <text class="cert-banner-desc" wx:if="{{!campusCertified && isLoggedIn}}">认证后解锁本校专属推荐</text>
+          <text class="cert-banner-desc" wx:elif="{{campusCertified}}">校园身份已验证</text>
+        </view>
+      </view>
+      <view class="cert-banner-badge {{campusCertified ? 'done' : ''}}">
+        <text wx:if="{{campusCertified}}">✓ 已认证</text>
+        <text wx:else>去认证 ›</text>
+      </view>
+    </view>
+  </view>
+
   <view class="menu-section container">
     <view class="menu-card card">
       <view class="menu-item" bindtap="goPage" data-url="/pages/my-products/index"><view class="menu-left"><image class="menu-icon" src="/images/icons/package.svg" /><view class="menu-text"><text class="menu-title">我的发布</text><text class="menu-desc">管理发布的商品</text></view></view><text class="menu-arrow">›</text></view>

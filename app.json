@@ -11,7 +11,8 @@
     "pages/messages/index",
     "pages/login/index",
     "pages/chat/index",
-    "pages/review/index"
+    "pages/review/index",
+    "pages/certify/index"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

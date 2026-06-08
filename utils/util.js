@@ -31,4 +31,15 @@ const clearUserInfo = () => {
   wx.removeStorageSync('userInfo')
 }
 
-module.exports = { formatTime, formatPrice, showToast, isLoggedIn, getUserInfo, setUserInfo, clearUserInfo }
+// ===== 校园认证 =====
+const isCampusCertified = () => {
+  const info = wx.getStorageSync('userInfo')
+  return !!(info && info.certified && info.campus)
+}
+
+const getUserCampus = () => {
+  const info = wx.getStorageSync('userInfo')
+  return (info && info.campus) || ''
+}
+
+module.exports = { formatTime, formatPrice, showToast, isLoggedIn, getUserInfo, setUserInfo, clearUserInfo, isCampusCertified, getUserCampus }

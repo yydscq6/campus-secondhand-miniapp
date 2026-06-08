@@ -1,0 +1,57 @@
+<view class="page-certify">
+  <!-- 顶部装饰 -->
+  <view class="certify-header">
+    <view class="header-deco"></view>
+    <view class="header-icon">🎓</view>
+    <text class="header-title">校园身份认证</text>
+    <text class="header-desc">完成认证后享受校内专属推荐</text>
+  </view>
+
+  <!-- 认证表单 -->
+  <view class="certify-form card">
+    <view class="form-section">
+      <text class="form-label"><text class="label-star">*</text> 所在学校</text>
+      <campus-picker value="{{form.campus}}" placeholder="点击选择你的学校" bind:change="onCampusChange" />
+    </view>
+
+    <view class="form-section">
+      <text class="form-label"><text class="label-star">*</text> 学号</text>
+      <input class="form-input" placeholder="请输入你的学号" value="{{form.studentId}}" bindinput="onInput" data-field="studentId" />
+    </view>
+
+    <view class="form-section">
+      <text class="form-label"><text class="label-star">*</text> 校园邮箱</text>
+      <view class="email-row">
+        <input class="form-input email-input" placeholder="xxx@pku.edu.cn" value="{{form.email}}" bindinput="onInput" data-field="email" />
+      </view>
+      <text class="form-hint">邮箱后缀需与所选学校匹配（如 pku.edu.cn）</text>
+    </view>
+
+    <view class="form-section">
+      <text class="form-label"><text class="label-star">*</text> 验证码</text>
+      <view class="code-row">
+        <input class="form-input code-input" placeholder="请输入验证码" type="number" maxlength="6" value="{{form.code}}" bindinput="onInput" data-field="code" />
+        <view class="code-btn {{codeCooling > 0 ? 'disabled' : ''}}" bindtap="sendCode">
+          {{codeCooling > 0 ? codeCooling + 's 后重发' : '发送验证码'}}
+        </view>
+      </view>
+      <text class="form-hint" wx:if="{{codeSent}}">验证码已发送至校园邮箱（演示模式：任意6位数字即可）</text>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view class="certify-bottom">
+    <button class="btn btn-primary btn-block certify-submit {{loading ? 'disabled' : ''}}" bindtap="submitCertify" disabled="{{loading}}">
+      {{loading ? '认证中...' : '提交认证'}}
+    </button>
+    <text class="certify-terms">认证信息仅用于身份核验，不会向其他用户公开</text>
+  </view>
+
+  <!-- 认证成功状态 -->
+  <view class="certify-success" wx:if="{{certified}}">
+    <view class="success-icon">✅</view>
+    <text class="success-title">认证成功！</text>
+    <text class="success-info">你已完成{{form.campus}}校园认证</text>
+    <button class="btn btn-primary btn-block" bindtap="goBack" style="margin-top:48rpx">返回</button>
+  </view>
+</view>

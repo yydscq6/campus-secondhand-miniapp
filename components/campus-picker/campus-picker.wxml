@@ -1,0 +1,7 @@
+<picker mode="multiSelector" range="{{displayList}}" value="{{pickerIndex}}" bindcolumnchange="onColumnChange" bindchange="onChange">
+  <view class="campus-picker {{selected ? 'has-value' : ''}}">
+    <text class="cp-emoji">🎓</text>
+    <text class="cp-text">{{selected || placeholder}}</text>
+    <text class="cp-arrow">›</text>
+  </view>
+</picker>

@@ -26,3 +26,5 @@
 .add-text { font-size: 22rpx; color: var(--text-hint); }
 .pub-bottom { position: fixed; bottom: 0; left: 0; right: 0; padding: 20rpx 32rpx; background: rgba(255,255,255,0.95); backdrop-filter: blur(20px); border-top: 1rpx solid var(--border); }
 .disabled { opacity: 0.6; }
+.form-hint { display: block; font-size: 22rpx; color: var(--text-hint); margin-top: 10rpx; }
+.campus-optional { font-size: 22rpx; color: var(--success); font-weight: 400; }

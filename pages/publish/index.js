@@ -2,10 +2,24 @@ const api = require('../../utils/api')
 const util = require('../../utils/util')
 Page({
   data: {
-    categories: [], form: { name:'', category:'', price:'', originalPrice:'', condition:'二手', description:'' },
-    conditions: ['全新','几乎全新','二手','旧'], conditionIdx: 2, images: [], submitting: false
+    categories: [], form: { name:'', category:'', price:'', originalPrice:'', condition:'二手', description:'', campus:'' },
+    conditions: ['全新','几乎全新','二手','旧'], conditionIdx: 2, images: [], submitting: false,
+    campusCertified: false, userCampus: '',
   },
-  onLoad() { this.loadCategories() },
+  onLoad() {
+    this.loadCategories()
+    this.loadCampusInfo()
+  },
+  loadCampusInfo() {
+    const campusCertified = util.isCampusCertified()
+    const userCampus = util.getUserCampus()
+    if (campusCertified && userCampus) {
+      this.setData({ campusCertified: true, userCampus, 'form.campus': userCampus })
+    }
+  },
+  onCampusChange(e) {
+    this.setData({ 'form.campus': e.detail.value })
+  },
   async loadCategories() { const categories = await api.getCategories(); this.setData({ categories }) },
   onInput(e) { const { field } = e.currentTarget.dataset; this.setData({ ['form.'+field]: e.detail.value }) },
   onCategoryChange(e) { const idx = e.detail.value; this.setData({ 'form.category': this.data.categories[idx].name }) },
@@ -26,6 +40,7 @@ Page({
     if (!form.category) { util.showToast('请选择分类'); return }
     if (!form.price) { util.showToast('请输入价格'); return }
     if (!form.description.trim()) { util.showToast('请输入商品描述'); return }
+    if (!form.campus) { util.showToast('请选择所在校区'); return }
     this.setData({ submitting: true })
     await api.publishProduct(form)
     wx.showToast({ title: '发布成功！', icon: 'success' })

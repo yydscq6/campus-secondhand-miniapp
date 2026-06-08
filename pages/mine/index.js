@@ -1,14 +1,20 @@
 const api = require('../../utils/api')
 const util = require('../../utils/util')
 Page({
-  data: { isLoggedIn: false, userInfo: null, statusBarHeight: 0, stats: { publish: 5, sold: 2, bought: 3, favorite: 2 } },
+  data: { isLoggedIn: false, userInfo: null, statusBarHeight: 0, stats: { publish: 5, sold: 2, bought: 3, favorite: 2 }, campusCertified: false, userCampus: '' },
   onLoad() { this.setData({ statusBarHeight: wx.getWindowInfo().statusBarHeight }) },
   onShow() {
     try { if (typeof this.getTabBar === 'function') this.getTabBar().setData({ selected: 3 }) } catch(e) {}
     const userInfo = util.getUserInfo()
-    this.setData({ isLoggedIn: !!userInfo, userInfo })
+    const campusCertified = util.isCampusCertified()
+    const userCampus = util.getUserCampus()
+    this.setData({ isLoggedIn: !!userInfo, userInfo, campusCertified, userCampus })
   },
   goLogin() { wx.navigateTo({ url: '/pages/login/index' }) },
+  goCertify() {
+    if (!this.data.isLoggedIn) { wx.navigateTo({ url: '/pages/login/index' }); return }
+    if (!this.data.campusCertified) { wx.navigateTo({ url: '/pages/certify/index' }) }
+  },
   goPage(e) {
     const { url } = e.currentTarget.dataset
     if (!url) { util.showToast('功能开发中'); return }
@@ -17,7 +23,7 @@ Page({
   },
   logout() {
     wx.showModal({ title: '提示', content: '确定退出登录吗？', confirmColor: '#6C5CE7',
-      success: (res) => { if (res.confirm) { util.clearUserInfo(); this.setData({ isLoggedIn: false, userInfo: null }) } }
+      success: (res) => { if (res.confirm) { util.clearUserInfo(); this.setData({ isLoggedIn: false, userInfo: null, campusCertified: false, userCampus: '' }) } }
     })
   }
 })

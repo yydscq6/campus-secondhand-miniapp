@@ -52,6 +52,28 @@
     <view class="trust-item"><image class="trust-icon" src="/images/icons/zap.svg" /><text>极速匹配</text></view>
   </view>
 
+  <!-- 校区筛选栏 -->
+  <view class="campus-filter-bar container anim-fade">
+    <view class="campus-bar-inner">
+      <view class="campus-info">
+        <text class="campus-emoji">🎓</text>
+        <view class="campus-text-wrap">
+          <text class="campus-label" wx:if="{{isCampusView}}">当前：{{filterCampus}}</text>
+          <text class="campus-label" wx:else>浏览全部校区商品</text>
+          <text class="campus-hint" wx:if="{{userCampus}}">点击切换{{isCampusView ? '查看全部' : '仅看本校'}}</text>
+          <text class="campus-hint" wx:else>完成校园认证，解锁本校推荐</text>
+        </view>
+      </view>
+      <view class="campus-toggle {{isCampusView ? 'active' : ''}}" bindtap="toggleCampusFilter">
+        <text class="toggle-text">{{isCampusView ? '仅本校' : '全部'}}</text>
+        <view class="toggle-dot"></view>
+      </view>
+    </view>
+    <view class="campus-badge" wx:if="{{isCampusView}}">
+      <text class="campus-badge-text">🏠 本校推荐</text>
+    </view>
+  </view>
+
   <!-- 分类入口 -->
   <view class="section container anim-fade">
     <view class="section-header">
@@ -87,7 +109,7 @@
             <text class="product-original">¥{{item.originalPrice}}</text>
           </view>
           <view class="product-meta">
-            <text class="product-seller">{{item.sellerNickname}}</text>
+            <text class="product-seller">📍{{item.campus}}</text>
             <text class="product-views">{{item.viewCount}}人看过</text>
           </view>
         </view>

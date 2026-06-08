@@ -7,6 +7,14 @@
     </view>
   </view>
 
+  <!-- 校区筛选 -->
+  <view class="campus-filter-row container" wx:if="{{showCampusToggle}}">
+    <view class="campus-chip {{campusFilter ? 'active' : ''}}" bindtap="toggleCampus">
+      <text>🎓 {{campusFilter ? campusFilter : '全部校区'}}</text>
+    </view>
+    <text class="campus-filter-hint" wx:if="{{campusFilter}}">仅显示本校商品</text>
+  </view>
+
   <!-- 分类标签 -->
   <scroll-view scroll-x class="cate-tabs container" enhanced show-scrollbar="{{false}}">
     <view class="cate-tab {{activeCate === '' ? 'active' : ''}}" bindtap="onCateTap" data-name="">全部</view>
@@ -39,7 +47,7 @@
           <text class="tag tag-primary">{{item.condition}}</text>
         </view>
         <view class="pro-seller-row">
-          <text class="pro-seller">👤 {{item.sellerNickname}}</text>
+          <text class="pro-seller">📍{{item.campus}}</text>
           <text class="pro-views">👁 {{item.viewCount}}</text>
         </view>
       </view>

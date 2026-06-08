@@ -1,4 +1,5 @@
 const api = require('../../utils/api')
+const util = require('../../utils/util')
 const app = getApp()
 
 Page({
@@ -16,24 +17,50 @@ Page({
     scrollTop: 0,
     showBackTop: false,
     keyword: '',
+    userCampus: '',
+    filterCampus: '',
+    isCampusView: false,
   },
 
   onLoad() {
     const sysInfo = wx.getWindowInfo()
     this.setData({ statusBarHeight: sysInfo.statusBarHeight })
+    this.loadCampusFilter()
     this.loadData()
   },
 
   onShow() {
     try { if (typeof this.getTabBar === 'function') { this.getTabBar().setData({ selected: 0 }) } } catch(e) {}
+    this.loadCampusFilter()
+  },
+
+  loadCampusFilter() {
+    const userCampus = util.getUserCampus()
+    const isCertified = util.isCampusCertified()
+    if (isCertified && userCampus) {
+      this.setData({ userCampus, filterCampus: userCampus, isCampusView: true })
+    } else {
+      this.setData({ userCampus: '', filterCampus: '', isCampusView: false })
+    }
+  },
+
+  toggleCampusFilter() {
+    const { isCampusView, userCampus } = this.data
+    if (!userCampus) {
+      wx.navigateTo({ url: '/pages/certify/index' })
+      return
+    }
+    this.setData({ isCampusView: !isCampusView, filterCampus: isCampusView ? '' : userCampus })
+    this.loadData()
   },
 
   async loadData() {
     wx.showNavigationBarLoading()
+    const campus = this.data.filterCampus
     const [categories, hotProducts, newProducts] = await Promise.all([
       api.getCategories(),
-      api.getHotProducts(),
-      api.getNewProducts()
+      api.getHotProducts(campus),
+      api.getNewProducts(campus)
     ])
     this.setData({ categories, hotProducts, newProducts })
     wx.hideNavigationBarLoading()
@@ -82,6 +109,10 @@ Page({
 
   goMessages() {
     wx.navigateTo({ url: '/pages/messages/index' })
+  },
+
+  goCertify() {
+    wx.navigateTo({ url: '/pages/certify/index' })
   },
 
   backTop() {

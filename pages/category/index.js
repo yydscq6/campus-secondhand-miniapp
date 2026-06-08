@@ -1,9 +1,23 @@
 const api = require('../../utils/api')
+const util = require('../../utils/util')
 Page({
-  data: { categories: [], products: [], activeCate: '', keyword: '', loading: true, sortOrder: '' },
+  data: { categories: [], products: [], activeCate: '', keyword: '', loading: true, sortOrder: '', userCampus: '', campusFilter: '', showCampusToggle: false },
   onLoad(opts) {
     if (opts.keyword) this.setData({ keyword: opts.keyword })
+    this.loadCampusInfo()
     this.loadCategories()
+    this.loadProducts()
+  },
+  loadCampusInfo() {
+    const userCampus = util.getUserCampus()
+    const certified = util.isCampusCertified()
+    if (certified && userCampus) {
+      this.setData({ userCampus, campusFilter: userCampus, showCampusToggle: true })
+    }
+  },
+  toggleCampus() {
+    const { campusFilter, userCampus } = this.data
+    this.setData({ campusFilter: campusFilter ? '' : userCampus })
     this.loadProducts()
   },
   async loadCategories() {
@@ -12,8 +26,8 @@ Page({
   },
   async loadProducts() {
     this.setData({ loading: true })
-    const { keyword, activeCate } = this.data
-    const products = await api.getProducts({ keyword, category: activeCate })
+    const { keyword, activeCate, campusFilter } = this.data
+    const products = await api.getProducts({ keyword, category: activeCate, campus: campusFilter })
     this.setData({ products, loading: false })
   },
   filterByCategory(name) {

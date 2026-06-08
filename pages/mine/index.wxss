@@ -1,2 +1,30 @@
 .page-mine{min-height:100vh;background:var(--bg)}.mine-header{position:relative;overflow:hidden;padding-bottom:32rpx}.header-bg{position:absolute;top:0;left:0;right:0;height:400rpx;background:linear-gradient(135deg,#6C5CE7 0%,#a29bfe 50%,#74b9ff 100%);border-radius:0 0 60rpx 60rpx}.user-section{position:relative;z-index:2;display:flex;align-items:center;padding:80rpx 40rpx 40rpx}.avatar-wrap{position:relative;margin-right:24rpx}.avatar{width:120rpx;height:120rpx;border-radius:50%;background:rgba(255,255,255,0.25);display:flex;align-items:center;justify-content:center;font-size:48rpx;color:#fff;font-weight:700;border:4rpx solid rgba(255,255,255,0.5)}.avatar-badge{position:absolute;bottom:0;right:0;width:36rpx;height:36rpx;background:#00b894;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18rpx;color:#fff;border:3rpx solid #fff}.user-info{flex:1}.user-name{font-size:36rpx;font-weight:700;color:#fff;display:block}.user-desc{font-size:24rpx;color:rgba(255,255,255,0.8);display:block;margin-top:4rpx}.header-arrow{font-size:40rpx;color:rgba(255,255,255,0.6)}.stats-row{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-around;background:rgba(255,255,255,0.15);backdrop-filter:blur(20px);margin:0 32rpx;padding:28rpx 0;border-radius:24rpx;border:1rpx solid rgba(255,255,255,0.2)}.stat-item{display:flex;flex-direction:column;align-items:center;gap:4rpx}.stat-num{font-size:36rpx;font-weight:800;color:#fff}.stat-label{font-size:22rpx;color:rgba(255,255,255,0.7)}.stat-divider{width:1rpx;height:48rpx;background:rgba(255,255,255,0.2)}.menu-section{padding:32rpx}.menu-card{border-radius:var(--radius);overflow:hidden}.menu-item{display:flex;align-items:center;justify-content:space-between;padding:28rpx;border-bottom:1rpx solid var(--border)}.menu-item:last-child{border-bottom:none}.menu-item:active{background:#f8f9fa}.menu-left{display:flex;align-items:center;gap:20rpx}.menu-icon{font-size:40rpx}.menu-title{font-size:28rpx;font-weight:600;color:var(--text-primary);display:block}.menu-desc{font-size:22rpx;color:var(--text-hint);display:block;margin-top:2rpx}.menu-right{display:flex;align-items:center;gap:12rpx}.menu-badge{min-width:36rpx;height:36rpx;background:#ff6b6b;color:#fff;font-size:20rpx;border-radius:36rpx;display:flex;align-items:center;justify-content:center;padding:0 10rpx}.menu-arrow{font-size:32rpx;color:var(--text-hint)}.logout-section{padding:40rpx 32rpx 20rpx}.footer-version{text-align:center;padding:40rpx 0 120rpx;font-size:22rpx;color:var(--text-hint)}
 .menu-icon{width:40rpx;height:40rpx}
+
+/* ===== 校园认证横幅 ===== */
+.cert-banner {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 28rpx; border-radius: var(--radius);
+  background: linear-gradient(135deg, #f0efff 0%, #e8f4fd 100%);
+  border: 2rpx solid rgba(108,92,231,0.12);
+  transition: all 0.3s;
+}
+.cert-banner.certified {
+  background: linear-gradient(135deg, rgba(0,184,148,0.08) 0%, rgba(108,92,231,0.06) 100%);
+  border-color: rgba(0,184,148,0.2);
+}
+.cert-banner:active { transform: scale(0.98); }
+.cert-banner-left { display: flex; align-items: center; gap: 16rpx; }
+.cert-banner-icon { font-size: 44rpx; }
+.cert-banner-info { display: flex; flex-direction: column; }
+.cert-banner-title { font-size: 28rpx; font-weight: 700; color: var(--text-primary); display: block; }
+.cert-banner.certified .cert-banner-title { color: var(--success); }
+.cert-banner-desc { font-size: 22rpx; color: var(--text-hint); margin-top: 4rpx; display: block; }
+.cert-banner-badge {
+  font-size: 22rpx; font-weight: 600; color: var(--primary);
+  padding: 10rpx 24rpx; border-radius: 32rpx;
+  background: rgba(108,92,231,0.12); flex-shrink: 0;
+}
+.cert-banner-badge.done {
+  color: var(--success); background: rgba(0,184,148,0.12);
+}
