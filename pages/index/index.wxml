@@ -4,12 +4,12 @@
   <view class="nav-bar" style="padding-top:{{statusBarHeight}}px">
     <view class="nav-bar__content">
       <view class="nav-logo">
-        <text class="logo-icon">🎓</text>
+        <image class="logo-icon" src="/images/icons/package.svg" />
         <text class="logo-text">校易淘</text>
       </view>
       <view class="nav-actions">
         <view class="nav-icon-btn" bindtap="goMessages">
-          <text class="iconfont">🔔</text>
+          <image class="nav-bell" src="/images/icons/bell.svg" />
           <view class="badge">3</view>
         </view>
       </view>
@@ -17,7 +17,7 @@
     <!-- 搜索栏 -->
     <view class="search-bar" bindtap="goSearch">
       <view class="search-inner">
-        <text class="search-icon">🔍</text>
+        <image class="search-icon" src="/images/icons/search.svg" />
         <input class="search-input" placeholder="搜索你想要的宝贝" placeholder-class="search-placeholder" value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearchConfirm" confirm-type="search" />
       </view>
     </view>
@@ -46,10 +46,10 @@
 
   <!-- 保障横幅 -->
   <view class="trust-bar container">
-    <view class="trust-item"><text class="trust-icon">🛡️</text><text>交易保障</text></view>
-    <view class="trust-item"><text class="trust-icon">✅</text><text>实名认证</text></view>
-    <view class="trust-item"><text class="trust-icon">🔄</text><text>7天售后</text></view>
-    <view class="trust-item"><text class="trust-icon">⚡</text><text>极速匹配</text></view>
+    <view class="trust-item"><image class="trust-icon" src="/images/icons/shield-check.svg" /><text>交易保障</text></view>
+    <view class="trust-item"><image class="trust-icon" src="/images/icons/check-circle.svg" /><text>实名认证</text></view>
+    <view class="trust-item"><image class="trust-icon" src="/images/icons/refresh-cw.svg" /><text>7天售后</text></view>
+    <view class="trust-item"><image class="trust-icon" src="/images/icons/zap.svg" /><text>极速匹配</text></view>
   </view>
 
   <!-- 分类入口 -->
@@ -71,7 +71,7 @@
   <!-- 热门推荐 -->
   <view class="section container anim-slide">
     <view class="section-header">
-      <text class="section-title">🔥 热门推荐</text>
+      <view class="section-title-wrap"><image class="section-icon" src="/images/icons/fire.svg" /><text class="section-title">热门推荐</text></view>
       <text class="section-more">更多 ›</text>
     </view>
     <view class="product-grid">
@@ -98,7 +98,7 @@
   <!-- 最新上架 -->
   <view class="section container">
     <view class="section-header">
-      <text class="section-title">🆕 最新上架</text>
+      <view class="section-title-wrap"><image class="section-icon" src="/images/icons/tag.svg" /><text class="section-title">最新上架</text></view>
     </view>
     <view class="new-list">
       <view class="new-item card" wx:for="{{newProducts}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">

@@ -1,9 +1,9 @@
 <view class="page-detail" wx:if="{{product}}">
   <view class="detail-nav" style="padding-top:{{statusBarHeight}}px">
     <view class="detail-nav-content">
-      <view class="nav-back" bindtap="goBack"><text>←</text></view>
+      <view class="nav-back" bindtap="goBack"><image src="/images/icons/arrow-left.svg" style="width:40rpx;height:40rpx" /></view>
       <text class="nav-title">商品详情</text>
-      <view class="nav-fav" bindtap="toggleFavorite"><text>{{isFavorite ? '❤️' : '🤍'}}</text></view>
+      <view class="nav-fav" bindtap="toggleFavorite"><image src="/images/icons/{{favIcon}}.svg" style="width:40rpx;height:40rpx" /></view>
     </view>
   </view>
   <view style="height:{{statusBarHeight + 88}}px"></view>
@@ -70,11 +70,11 @@
   <view class="bottom-bar safe-bottom">
     <view class="bottom-left">
       <view class="bottom-icon" bindtap="toggleFavorite">
-        <text>{{isFavorite ? '❤️' : '🤍'}}</text>
+        <image src="/images/icons/{{favIcon}}.svg" style="width:40rpx;height:40rpx" />
         <text class="bottom-icon-text">收藏</text>
       </view>
       <view class="bottom-icon" bindtap="goChat">
-        <text>💬</text>
+        <image src="/images/icons/message.svg" style="width:40rpx;height:40rpx" />
         <text class="bottom-icon-text">聊天</text>
       </view>
     </view>

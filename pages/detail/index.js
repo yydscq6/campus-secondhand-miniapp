@@ -1,7 +1,7 @@
 const api = require('../../utils/api')
 const util = require('../../utils/util')
 Page({
-  data: { product: null, reviews: [], isFavorite: false, statusBarHeight: 0, showBargain: false, bargainPrice: '' },
+  data: { product: null, reviews: [], isFavorite: false, favIcon: 'heart', statusBarHeight: 0, showBargain: false, bargainPrice: '' },
   onLoad(opts) {
     this.setData({ statusBarHeight: wx.getWindowInfo().statusBarHeight })
     if (opts.id) this.loadDetail(opts.id)
@@ -9,12 +9,12 @@ Page({
   async loadDetail(id) {
     const product = await api.getProductById(Number(id))
     const reviews = await api.getProductReviews(Number(id))
-    this.setData({ product, reviews, isFavorite: product ? product.isFavorite : false })
+    this.setData({ product, reviews, isFavorite: product ? product.isFavorite : false, favIcon: (product && product.isFavorite) ? 'heart-fill' : 'heart' })
   },
   async toggleFavorite() {
     if (!util.isLoggedIn()) { wx.navigateTo({ url: '/pages/login/index' }); return }
     const res = await api.toggleFavorite(this.data.product.id)
-    this.setData({ isFavorite: res.isFavorite })
+    this.setData({ isFavorite: res.isFavorite, favIcon: res.isFavorite ? 'heart-fill' : 'heart' })
     util.showToast(res.isFavorite ? '已收藏' : '已取消收藏')
   },
   goBuy() {

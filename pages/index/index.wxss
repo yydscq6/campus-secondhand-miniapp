@@ -111,3 +111,11 @@
 .back-top.show { opacity: 1; transform: translateY(0); pointer-events: auto; }
 
 .container { padding: 0 32rpx; }
+
+/* SVG Icon sizes */
+.logo-icon{width:40rpx;height:40rpx}
+.nav-bell{width:40rpx;height:40rpx}
+.search-icon{width:32rpx;height:32rpx;margin-right:16rpx}
+.trust-icon{width:32rpx;height:32rpx}
+.section-icon{width:36rpx;height:36rpx;margin-right:8rpx}
+.section-title-wrap{display:flex;align-items:center}

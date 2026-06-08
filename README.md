@@ -9,6 +9,7 @@
 | 前端框架 | 微信小程序原生开发 |
 | 后端服务 | 微信云开发（云函数 + 云数据库） |
 | 设计风格 | 紫罗兰渐变 + 毛玻璃 + 微交互动画 |
+| 图标方案 | 自研 SVG 线性图标（37枚） |
 | 数据层 | Mock 数据（预留云函数接口） |
 
 ## 设计规范
@@ -17,6 +18,7 @@
 - **圆角**: 24rpx（卡片）/ 16rpx（小元素）/ 32rpx（大区域）
 - **阴影**: 紫色系投影 `rgba(108,92,231,0.08)`
 - **动画**: fadeIn / slideUp / scale 弹性过渡
+- **图标**: 24×24 viewBox，2px 描边，圆角端点，线性风格
 
 ---
 
@@ -73,9 +75,10 @@ secondhand-miniapp/
 ├── app.wxss                  # 全局样式（设计系统 / 工具类）
 ├── project.config.json       # 项目配置（AppID: wx56b37bc03e307702）
 ├── sitemap.json              # 站点地图
-├── images/                   # 图片资源
+├── images/
 │   ├── demo/                 # 商品图片（12张真实商品图）
-│   └── tab-*.png             # TabBar 图标
+│   ├── icons/                # SVG 图标（37枚统一线性风格）
+│   └── tab-*.png             # TabBar 图标（8枚，灰/紫各4枚）
 ├── utils/
 │   ├── mock.js               # Mock 数据（商品 / 订单 / 评价 / 消息）
 │   ├── api.js                # API 接口层（当前 Mock，可对接云函数）
@@ -84,8 +87,37 @@ secondhand-miniapp/
 │   ├── login/                # 登录云函数
 │   ├── getProducts/          # 获取商品云函数
 │   └── createOrder/          # 创建订单云函数
-└── pages/                    # 12 个页面（详见上方）
+└── pages/                    # 12 个页面
+    ├── index/                # 首页
+    ├── category/             # 分类
+    ├── publish/              # 发布
+    ├── mine/                 # 我的
+    ├── detail/               # 商品详情
+    ├── my-products/          # 我的发布
+    ├── orders/               # 订单
+    ├── favorites/            # 收藏
+    ├── messages/             # 消息
+    ├── login/                # 登录注册
+    ├── chat/                 # 聊天
+    └── review/               # 评价
 ```
+
+---
+
+## 图标系统（37 枚 SVG）
+
+所有图标采用统一线性风格：24×24 viewBox / 2px 描边 / 圆角端点 / `currentColor` 继承文字色。
+
+| 类型 | 图标名称 |
+|------|---------|
+| TabBar (8) | `tab-home` `tab-category` `tab-publish` `tab-mine`（各含 `-active` 版本） |
+| 导航 (4) | `arrow-left` `arrow-right` `close` `search` |
+| 功能 (8) | `bell` `heart` `heart-fill` `message` `shopping-bag` `eye` `edit` `trash` |
+| 保障 (5) | `shield` `shield-check` `check-circle` `zap` `refresh-cw` |
+| 分类 (6) | `smartphone` `book-open` `fire` `star` `star-fill` `tag` |
+| 菜单 (7) | `user` `package` `clipboard` `settings` `clock` `lock` `tag` |
+
+TabBar 图标使用 Pillow（Python）生成 81×81 RGBA PNG，页面内图标使用 SVG `<image>` 引用。
 
 ---
 
@@ -115,11 +147,11 @@ git clone https://github.com/yydscq6/campus-secondhand-miniapp.git
 ## 数据说明
 
 当前使用 **本地 Mock 数据**，包含：
-- 12 件商品（覆盖 8 个分类）
+- 12 件商品（覆盖 8 个分类，配有真实商品图片）
 - 3 笔订单（待付款 / 已完成 / 已退款）
 - 3 条评价
 - 5 条消息
-- 4 个测试用户
+- 4 个测试用户（含管理员）
 
 对接云开发只需修改 `utils/api.js` 中的接口实现。
 
@@ -136,6 +168,7 @@ git clone https://github.com/yydscq6/campus-secondhand-miniapp.git
 | 自定义导航栏 | `navigationStyle: custom` + 状态栏适配 |
 | 安全区适配 | `env(safe-area-inset-bottom)` |
 | 渐变按钮 | 紫色渐变 + 阴影光晕 + 按压缩放 |
+| 统一图标 | 自研 37 枚 SVG 线性图标，2px 描边风格 |
 
 ---
 

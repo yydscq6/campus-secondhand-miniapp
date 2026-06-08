@@ -5,7 +5,7 @@
   </view>
   <view class="login-content">
     <view class="login-logo">
-      <view class="logo-circle">🎓</view>
+      <view class="logo-circle"><image src="/images/icons/package.svg" style="width:56rpx;height:56rpx" /></view>
       <text class="logo-title">校易淘</text>
       <text class="logo-sub">校园二手交易平台</text>
     </view>
@@ -16,20 +16,20 @@
       </view>
       <view class="input-group">
         <view class="input-item">
-          <text class="input-icon">👤</text>
+          <image class="input-icon" src="/images/icons/user.svg" />
           <input class="input-field" placeholder="请输入用户名" value="{{username}}" bindinput="onInput" data-field="username" />
         </view>
         <view class="input-item">
-          <text class="input-icon">🔒</text>
+          <image class="input-icon" src="/images/icons/lock.svg" />
           <input class="input-field" placeholder="请输入密码" password="{{!showPwd}}" value="{{password}}" bindinput="onInput" data-field="password" />
           <text class="pwd-toggle" bindtap="togglePwd">{{showPwd ? '🙈' : '👁️'}}</text>
         </view>
         <view class="input-item" wx:if="{{mode === 'register'}}">
-          <text class="input-icon">✨</text>
+          <image class="input-icon" src="/images/icons/star.svg" />
           <input class="input-field" placeholder="请输入昵称" value="{{nickname}}" bindinput="onInput" data-field="nickname" />
         </view>
         <view class="input-item" wx:if="{{mode === 'register'}}">
-          <text class="input-icon">📱</text>
+          <image class="input-icon" src="/images/icons/smartphone.svg" />
           <input class="input-field" placeholder="请输入手机号" type="number" value="{{phone}}" bindinput="onInput" data-field="phone" />
         </view>
       </view>
