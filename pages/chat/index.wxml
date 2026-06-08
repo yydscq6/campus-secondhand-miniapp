@@ -1,0 +1,16 @@
+<view class="page-chat">
+  <view class="chat-messages">
+    <view wx:for="{{messages}}" wx:key="id" class="msg-row {{item.type === 'self' ? 'msg-self' : 'msg-other'}}">
+      <view class="msg-avatar" wx:if="{{item.type === 'other'}}">{{sellerName[0]}}</view>
+      <view class="msg-bubble {{item.type}}">
+        <text class="msg-text">{{item.content}}</text>
+        <text class="msg-time">{{item.time}}</text>
+      </view>
+      <view class="msg-avatar self-avatar" wx:if="{{item.type === 'self'}}">我</view>
+    </view>
+  </view>
+  <view class="chat-input-bar safe-bottom">
+    <input class="chat-input" placeholder="输入消息..." value="{{inputValue}}" bindinput="onInput" bindconfirm="sendMessage" confirm-type="send" />
+    <view class="send-btn {{inputValue ? 'active' : ''}}" bindtap="sendMessage">发送</view>
+  </view>
+</view>

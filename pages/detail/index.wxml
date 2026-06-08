@@ -1,0 +1,102 @@
+<view class="page-detail" wx:if="{{product}}">
+  <view class="detail-nav" style="padding-top:{{statusBarHeight}}px">
+    <view class="detail-nav-content">
+      <view class="nav-back" bindtap="goBack"><text>←</text></view>
+      <text class="nav-title">商品详情</text>
+      <view class="nav-fav" bindtap="toggleFavorite"><text>{{isFavorite ? '❤️' : '🤍'}}</text></view>
+    </view>
+  </view>
+  <view style="height:{{statusBarHeight + 88}}px"></view>
+
+  <view class="detail-img-wrap">
+    <image class="detail-img" src="{{product.imageUrl}}" mode="aspectFill" />
+    <view class="img-count">1/1</view>
+    <view class="condition-badge">{{product.condition}}</view>
+  </view>
+
+  <view class="price-section container">
+    <view class="price-row">
+      <text class="price-symbol">¥</text>
+      <text class="price-value">{{product.price}}</text>
+      <text class="price-original">¥{{product.originalPrice}}</text>
+      <view class="discount-tag">省{{product.originalPrice - product.price}}元</view>
+    </view>
+    <view class="product-title">{{product.name}}</view>
+    <view class="product-desc-full">{{product.description}}</view>
+    <view class="meta-row">
+      <text class="meta-item">👁 {{product.viewCount}}次浏览</text>
+      <text class="meta-item">📅 {{product.createTime}}</text>
+    </view>
+  </view>
+
+  <view class="seller-card card container">
+    <view class="seller-info">
+      <view class="seller-avatar">👤</view>
+      <view class="seller-detail">
+        <text class="seller-name">{{product.sellerNickname}}</text>
+        <text class="seller-label">个人卖家 · 校园认证</text>
+      </view>
+      <view class="chat-btn" bindtap="goChat"><text>💬 聊天</text></view>
+    </view>
+  </view>
+
+  <view class="guarantee-section card container">
+    <view class="guarantee-title">🛡️ 平台保障</view>
+    <view class="guarantee-list">
+      <view class="guarantee-item"><text class="gi-icon" style="background:#6C5CE720;color:#6C5CE7">✓</text><text>实名认证卖家</text></view>
+      <view class="guarantee-item"><text class="gi-icon" style="background:#00b89420;color:#00b894">✓</text><text>7天无理由售后</text></view>
+      <view class="guarantee-item"><text class="gi-icon" style="background:#fd79a820;color:#fd79a8">✓</text><text>平台资金担保</text></view>
+      <view class="guarantee-item"><text class="gi-icon" style="background:#0984e320;color:#0984e3">✓</text><text>校园面交安全</text></view>
+    </view>
+  </view>
+
+  <view class="review-section container" wx:if="{{reviews.length > 0}}">
+    <view class="section-header"><text class="section-title">商品评价 ({{reviews.length}})</text></view>
+    <view class="review-list">
+      <view class="review-item" wx:for="{{reviews}}" wx:key="id">
+        <view class="review-header">
+          <view class="review-avatar">{{item.reviewerNickname[0]}}</view>
+          <view class="review-user">
+            <text class="review-name">{{item.reviewerNickname}}</text>
+            <text class="review-time">{{item.createTime}}</text>
+          </view>
+          <view class="review-stars">⭐⭐⭐⭐⭐</view>
+        </view>
+        <text class="review-content">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="bottom-bar safe-bottom">
+    <view class="bottom-left">
+      <view class="bottom-icon" bindtap="toggleFavorite">
+        <text>{{isFavorite ? '❤️' : '🤍'}}</text>
+        <text class="bottom-icon-text">收藏</text>
+      </view>
+      <view class="bottom-icon" bindtap="goChat">
+        <text>💬</text>
+        <text class="bottom-icon-text">聊天</text>
+      </view>
+    </view>
+    <view class="bottom-right">
+      <view class="btn btn-ghost" bindtap="showBargainPanel">议价</view>
+      <view class="btn btn-primary" bindtap="goBuy">立即购买</view>
+    </view>
+  </view>
+
+  <view class="mask {{showBargain ? 'show' : ''}}" bindtap="hideBargain"></view>
+  <view class="bargain-panel {{showBargain ? 'show' : ''}}">
+    <view class="bargain-header">
+      <text class="bargain-title">发起议价</text>
+      <text class="bargain-close" bindtap="hideBargain">✕</text>
+    </view>
+    <view class="bargain-body">
+      <text class="bargain-hint">当前售价：<text style="color:#e17055;font-weight:700">¥{{product.price}}</text></text>
+      <view class="bargain-input-wrap">
+        <text class="bargain-yen">¥</text>
+        <input class="bargain-input" type="digit" placeholder="输入你的出价" value="{{bargainPrice}}" bindinput="onBargainInput" />
+      </view>
+      <view class="btn btn-primary btn-block" style="margin-top:32rpx" bindtap="sendBargain">发送议价请求</view>
+    </view>
+  </view>
+</view>

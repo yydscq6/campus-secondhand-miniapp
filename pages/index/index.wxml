@@ -1,0 +1,124 @@
+<!-- ===== 首页 ===== -->
+<view class="page-index">
+  <!-- 自定义导航栏 -->
+  <view class="nav-bar" style="padding-top:{{statusBarHeight}}px">
+    <view class="nav-bar__content">
+      <view class="nav-logo">
+        <text class="logo-icon">🎓</text>
+        <text class="logo-text">校易淘</text>
+      </view>
+      <view class="nav-actions">
+        <view class="nav-icon-btn" bindtap="goMessages">
+          <text class="iconfont">🔔</text>
+          <view class="badge">3</view>
+        </view>
+      </view>
+    </view>
+    <!-- 搜索栏 -->
+    <view class="search-bar" bindtap="goSearch">
+      <view class="search-inner">
+        <text class="search-icon">🔍</text>
+        <input class="search-input" placeholder="搜索你想要的宝贝" placeholder-class="search-placeholder" value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearchConfirm" confirm-type="search" />
+      </view>
+    </view>
+  </view>
+  <view class="nav-placeholder" style="height:{{statusBarHeight + 100}}px"></view>
+
+  <!-- 轮播图 -->
+  <view class="swiper-wrap container">
+    <swiper class="banner-swiper" indicator-dots="{{false}}" autoplay circular interval="{{4000}}" duration="{{600}}" bindchange="onSwiperChange">
+      <swiper-item wx:for="{{swiperList}}" wx:key="id">
+        <view class="banner-item banner-item-{{index}}">
+          <view class="banner-content">
+            <text class="banner-tag">限时特惠</text>
+            <text class="banner-title">{{item.title}}</text>
+            <text class="banner-subtitle">{{item.subtitle}}</text>
+            <view class="banner-btn">立即查看 →</view>
+          </view>
+          <view class="banner-deco"></view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="swiper-dots">
+      <view wx:for="{{swiperList}}" wx:key="id" class="dot {{currentSwiper === index ? 'dot-active' : ''}}"></view>
+    </view>
+  </view>
+
+  <!-- 保障横幅 -->
+  <view class="trust-bar container">
+    <view class="trust-item"><text class="trust-icon">🛡️</text><text>交易保障</text></view>
+    <view class="trust-item"><text class="trust-icon">✅</text><text>实名认证</text></view>
+    <view class="trust-item"><text class="trust-icon">🔄</text><text>7天售后</text></view>
+    <view class="trust-item"><text class="trust-icon">⚡</text><text>极速匹配</text></view>
+  </view>
+
+  <!-- 分类入口 -->
+  <view class="section container anim-fade">
+    <view class="section-header">
+      <text class="section-title">商品分类</text>
+      <text class="section-more" bindtap="goCategory" data-name="">全部 ›</text>
+    </view>
+    <view class="cate-grid">
+      <view class="cate-item" wx:for="{{categories}}" wx:key="id" bindtap="goCategory" data-name="{{item.name}}">
+        <view class="cate-icon-wrap" style="background:{{item.color}}20">
+          <text class="cate-icon">{{item.icon}}</text>
+        </view>
+        <text class="cate-name">{{item.name}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 热门推荐 -->
+  <view class="section container anim-slide">
+    <view class="section-header">
+      <text class="section-title">🔥 热门推荐</text>
+      <text class="section-more">更多 ›</text>
+    </view>
+    <view class="product-grid">
+      <view class="product-card card" wx:for="{{hotProducts}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}" style="animation-delay:{{index * 0.08}}s">
+        <view class="product-img-wrap">
+          <image class="product-img" src="{{item.imageUrl}}" mode="aspectFill" />
+          <view class="product-tag" wx:if="{{item.condition === '几乎全新'}}">{{item.condition}}</view>
+        </view>
+        <view class="product-info">
+          <text class="product-name ellipsis">{{item.name}}</text>
+          <view class="product-price-row">
+            <text class="product-price">¥{{item.price}}</text>
+            <text class="product-original">¥{{item.originalPrice}}</text>
+          </view>
+          <view class="product-meta">
+            <text class="product-seller">{{item.sellerNickname}}</text>
+            <text class="product-views">{{item.viewCount}}人看过</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 最新上架 -->
+  <view class="section container">
+    <view class="section-header">
+      <text class="section-title">🆕 最新上架</text>
+    </view>
+    <view class="new-list">
+      <view class="new-item card" wx:for="{{newProducts}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}">
+        <image class="new-item-img" src="{{item.imageUrl}}" mode="aspectFill" />
+        <view class="new-item-info">
+          <text class="new-item-name ellipsis">{{item.name}}</text>
+          <text class="new-item-desc ellipsis-2">{{item.description}}</text>
+          <view class="new-item-bottom">
+            <text class="new-item-price">¥{{item.price}}</text>
+            <text class="tag tag-gray">{{item.category}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="footer-text">— 已经到底啦 —</view>
+
+  <!-- 回到顶部 -->
+  <view class="back-top {{showBackTop ? 'show' : ''}}" bindtap="backTop">
+    <text>↑</text>
+  </view>
+</view>

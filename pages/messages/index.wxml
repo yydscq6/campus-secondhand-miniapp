@@ -1,0 +1,27 @@
+<view class="page-msg">
+  <view class="msg-header container">
+    <text class="msg-title">消息中心</text>
+    <text class="msg-unread" wx:if="{{unreadCount > 0}}">{{unreadCount}}条未读</text>
+  </view>
+  <view class="msg-list container" wx:if="{{!loading && messages.length > 0}}">
+    <view class="msg-item {{item.read ? '' : 'unread'}}" wx:for="{{messages}}" wx:key="id" bindtap="markRead" data-id="{{item.id}}">
+      <view class="msg-icon">
+        <text wx:if="{{item.type === 'system'}}">🔔</text>
+        <text wx:elif="{{item.type === 'transaction'}}">📋</text>
+        <text wx:else>💰</text>
+        <view class="unread-dot" wx:if="{{!item.read}}"></view>
+      </view>
+      <view class="msg-body">
+        <view class="msg-top">
+          <text class="msg-name">{{item.title}}</text>
+          <text class="msg-time">{{item.time}}</text>
+        </view>
+        <text class="msg-content ellipsis-2">{{item.content}}</text>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{!loading && messages.length === 0}}">
+    <text class="empty-icon">💬</text>
+    <text class="empty-text">暂无消息</text>
+  </view>
+</view>

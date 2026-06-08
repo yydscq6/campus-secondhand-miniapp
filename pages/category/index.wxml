@@ -1,0 +1,60 @@
+<view class="page-cate">
+  <!-- 搜索 -->
+  <view class="cate-search container">
+    <view class="search-box">
+      <text class="search-icon">🔍</text>
+      <input class="search-input" placeholder="搜索商品" value="{{keyword}}" bindinput="onSearchInput" bindconfirm="onSearchConfirm" />
+    </view>
+  </view>
+
+  <!-- 分类标签 -->
+  <scroll-view scroll-x class="cate-tabs container" enhanced show-scrollbar="{{false}}">
+    <view class="cate-tab {{activeCate === '' ? 'active' : ''}}" bindtap="onCateTap" data-name="">全部</view>
+    <view class="cate-tab {{activeCate === item.name ? 'active' : ''}}" wx:for="{{categories}}" wx:key="id" bindtap="onCateTap" data-name="{{item.name}}">
+      <text>{{item.icon}} {{item.name}}</text>
+    </view>
+  </scroll-view>
+
+  <!-- 排序栏 -->
+  <view class="sort-bar container">
+    <view class="sort-item {{sortOrder === '' ? 'active' : ''}}" bindtap="onSortChange" data-sort="">综合</view>
+    <view class="sort-item {{sortOrder === 'new' ? 'active' : ''}}" bindtap="onSortChange" data-sort="new">最新</view>
+    <view class="sort-item {{sortOrder === 'price-asc' ? 'active' : ''}}" bindtap="onSortChange" data-sort="price-asc">价格↑</view>
+    <view class="sort-item {{sortOrder === 'price-desc' ? 'active' : ''}}" bindtap="onSortChange" data-sort="price-desc">价格↓</view>
+    <view class="sort-result">共{{products.length}}件</view>
+  </view>
+
+  <!-- 商品列表 -->
+  <view class="product-list container" wx:if="{{!loading && products.length > 0}}">
+    <view class="pro-card card anim-fade" wx:for="{{products}}" wx:key="id" bindtap="goDetail" data-id="{{item.id}}" style="animation-delay:{{index * 0.06}}s">
+      <image class="pro-img" src="{{item.imageUrl}}" mode="aspectFill" />
+      <view class="pro-body">
+        <text class="pro-name ellipsis">{{item.name}}</text>
+        <text class="pro-desc ellipsis">{{item.description}}</text>
+        <view class="pro-bottom">
+          <view>
+            <text class="pro-price">¥{{item.price}}</text>
+            <text class="pro-orig">¥{{item.originalPrice}}</text>
+          </view>
+          <text class="tag tag-primary">{{item.condition}}</text>
+        </view>
+        <view class="pro-seller-row">
+          <text class="pro-seller">👤 {{item.sellerNickname}}</text>
+          <text class="pro-views">👁 {{item.viewCount}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空状态 -->
+  <view class="empty-state" wx:if="{{!loading && products.length === 0}}">
+    <text class="empty-icon">📦</text>
+    <text class="empty-text">暂无相关商品</text>
+  </view>
+
+  <!-- 加载中 -->
+  <view class="loading-state" wx:if="{{loading}}">
+    <view class="loading-spinner"></view>
+    <text>加载中...</text>
+  </view>
+</view>

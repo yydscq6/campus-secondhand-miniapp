@@ -1,0 +1,24 @@
+<view class="page-fav">
+  <view class="fav-header container">
+    <text class="fav-title">我的收藏</text>
+    <text class="fav-count">共{{favorites.length}}件</text>
+  </view>
+  <view class="fav-list container" wx:if="{{!loading && favorites.length > 0}}">
+    <view class="fav-card card anim-fade" wx:for="{{favorites}}" wx:key="id" style="animation-delay:{{index * 0.06}}s">
+      <image class="fav-img" src="{{item.imageUrl}}" mode="aspectFill" bindtap="goDetail" data-id="{{item.id}}" />
+      <view class="fav-body">
+        <text class="fav-name ellipsis" bindtap="goDetail" data-id="{{item.id}}">{{item.name}}</text>
+        <text class="fav-desc ellipsis">{{item.description}}</text>
+        <view class="fav-bottom">
+          <text class="fav-price">¥{{item.price}}</text>
+          <view class="fav-remove" bindtap="removeFavorite" data-id="{{item.id}}">取消收藏</view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{!loading && favorites.length === 0}}">
+    <text class="empty-icon">❤️</text>
+    <text class="empty-text">还没有收藏的宝贝</text>
+    <view class="btn btn-primary btn-sm" style="margin-top:32rpx" bindtap="">去逛逛</view>
+  </view>
+</view>

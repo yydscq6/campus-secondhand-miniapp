@@ -1,0 +1,49 @@
+<view class="page-orders">
+  <view class="order-tabs">
+    <view class="tab-item {{activeTab === index ? 'active' : ''}}" wx:for="{{tabs}}" wx:key="*this" bindtap="onTabChange" data-idx="{{index}}">{{item}}</view>
+  </view>
+  <view class="order-list container" wx:if="{{activeTab === 0}}">
+    <view class="order-card card" wx:for="{{buyOrders}}" wx:key="id">
+      <view class="order-header">
+        <text class="order-no">{{item.orderNo}}</text>
+        <text class="order-status status-{{item.status}}">{{item.status === 0 ? '待付款' : item.status === 1 ? '已完成' : item.status === 3 ? '已退款' : '已取消'}}</text>
+      </view>
+      <view class="order-body" bindtap="goDetail" data-pid="{{item.productId}}">
+        <image class="order-img" src="{{item.productImageUrl}}" mode="aspectFill" />
+        <view class="order-info">
+          <text class="order-name ellipsis">{{item.productName}}</text>
+          <text class="order-seller">卖家：{{item.sellerNickname}}</text>
+          <text class="order-price">¥{{item.amount}}</text>
+        </view>
+      </view>
+      <view class="order-actions">
+        <view class="btn btn-sm btn-primary" wx:if="{{item.status === 0}}" bindtap="payOrder" data-id="{{item.id}}">去支付</view>
+        <view class="btn btn-sm btn-ghost" wx:if="{{item.status === 0}}" bindtap="cancelOrder" data-id="{{item.id}}">取消</view>
+        <view class="btn btn-sm btn-accent" wx:if="{{item.status === 1}}" bindtap="goReview" data-id="{{item.id}}">评价</view>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{activeTab === 0 && buyOrders.length === 0}}">
+    <text class="empty-icon">📋</text>
+    <text class="empty-text">暂无订单</text>
+  </view>
+  <view class="order-list container" wx:if="{{activeTab === 1}}">
+    <view class="order-card card" wx:for="{{sellOrders}}" wx:key="id">
+      <view class="order-header">
+        <text class="order-no">{{item.orderNo}}</text>
+        <text class="order-status status-{{item.status}}">{{item.status === 0 ? '待付款' : item.status === 1 ? '已完成' : '已取消'}}</text>
+      </view>
+      <view class="order-body">
+        <image class="order-img" src="{{item.productImageUrl}}" mode="aspectFill" />
+        <view class="order-info">
+          <text class="order-name ellipsis">{{item.productName}}</text>
+          <text class="order-price">¥{{item.amount}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="empty-state" wx:if="{{activeTab === 1 && sellOrders.length === 0}}">
+    <text class="empty-icon">📦</text>
+    <text class="empty-text">暂无卖出记录</text>
+  </view>
+</view>

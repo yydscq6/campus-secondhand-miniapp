@@ -1,0 +1,44 @@
+<view class="page-review">
+  <!-- 写评价 -->
+  <view class="review-write" wx:if="{{isWriteMode}}">
+    <view class="write-header container">
+      <text class="write-title">发表评价</text>
+    </view>
+    <view class="write-form container">
+      <view class="rating-section">
+        <text class="rating-label">商品评分</text>
+        <view class="rating-stars">
+          <text wx:for="{{5}}" wx:key="*this" class="star {{index < rating ? 'active' : ''}}" bindtap="setRating" data-rating="{{index + 1}}">⭐</text>
+        </view>
+        <text class="rating-text">{{['很差','较差','一般','满意','非常满意'][rating - 1]}}</text>
+      </view>
+      <view class="content-section">
+        <text class="content-label">评价内容</text>
+        <textarea class="content-textarea" placeholder="分享你的购买体验..." maxlength="200" value="{{content}}" bindinput="onInput" />
+      </view>
+      <button class="btn btn-primary btn-block {{submitting ? 'disabled' : ''}}" bindtap="submitReview" disabled="{{submitting}}">提交评价</button>
+    </view>
+  </view>
+  <!-- 查看评价 -->
+  <view class="review-list container" wx:if="{{!isWriteMode}}">
+    <view class="review-header">
+      <text class="review-title">全部评价</text>
+      <text class="review-count">{{reviews.length}}条</text>
+    </view>
+    <view class="review-item card" wx:for="{{reviews}}" wx:key="id">
+      <view class="ri-header">
+        <view class="ri-avatar">{{item.reviewerNickname[0]}}</view>
+        <view class="ri-user">
+          <text class="ri-name">{{item.reviewerNickname}}</text>
+          <text class="ri-time">{{item.createTime}}</text>
+        </view>
+        <text class="ri-stars">⭐{{item.rating}}</text>
+      </view>
+      <text class="ri-content">{{item.content}}</text>
+    </view>
+    <view class="empty-state" wx:if="{{reviews.length === 0}}">
+      <text class="empty-icon">⭐</text>
+      <text class="empty-text">暂无评价</text>
+    </view>
+  </view>
+</view>
